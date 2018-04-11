@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>overload test</title>
+</head>
+
+<body>
+    <script src="../src/overload.js"></script>
+    <script>
+        (function (window) {
+            var Point = overload()
+                .add([Number, Number], function (x, y) {
+                    this.x = x;
+                    this.y = y;
+                })
+                .add([], function () {
+                    this.x = 0;
+                    this.y = 0;
+                });
+
+            Point.prototype.toString = function () {
+                console.log("x=" + this.x, ",", "y=" + this.y);
+            };
+
+            var point = new Point(2, 1);
+            var zero = new Point();
+
+            point.toString();
+            zero.toString();
+
+            window.Point = Point;
+        })(window);
+    </script>
+</body>
+
+</html>
